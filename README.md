@@ -1,104 +1,44 @@
 TravelXplore – Django Web Application
+
 Project Overview
+TravelXplore is a Django-based web application created as a learning and academic project to understand the fundamentals of backend web development using the Django framework. The project focuses on applying core concepts such as project structure, app creation, URL routing, views, and admin configuration.
 
-TravelXplore is a Django-based web application developed to manage and display travel-related content in a structured and user-friendly way. The project follows Django’s standard architecture and focuses on clean backend logic with scalable design.
+Purpose of the Project
+The main purpose of this project is to gain hands-on experience with Django and to practice building a structured web application following standard development practices. This project was developed as part of coursework and self-learning.
 
-This project is built as part of academic learning to strengthen practical knowledge of Django framework, URL routing, views, and app-based development.
-
-Features
-
-Django project with proper app structure
-
-Pages app for managing website pages
-
-URL routing and views implementation
-
-Admin panel configuration
-
-Clean and maintainable code structure
-
-Ready for future feature expansion
+Key Features
+The application follows Django’s standard project and app architecture. It includes a separate app for handling pages, proper URL mapping, and backend logic using views. The Django admin panel is configured for managing application data. Version control is maintained using Git and GitHub.
 
 Technologies Used
-
-Python
-
-Django Framework
-
-SQLite (default Django database)
-
-HTML (templates)
-
-CSS (basic styling)
+Python programming language
+Django web framework
+SQLite database
+HTML and CSS
+Git and GitHub
 
 Project Structure
-travelxplore/
-│
-├── manage.py
-├── mywebsite/
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── pages/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── views.py
-│   ├── models.py
-│   └── urls.py
-│
-└── README.md
+The project contains a main Django project directory and a pages app. Core Django files such as settings.py, urls.py, and manage.py are included along with app-specific files like views.py and models.py. The structure follows Django best practices.
 
 How to Run the Project
+Clone the repository from GitHub.
+Navigate to the project folder.
+Install Django if it is not already installed.
+Run the development server using the Django runserver command.
+Access the application through the local development URL.
 
-Clone the repository:
-
-git clone https://github.com/Hanisha-Vaghela/travelxplore.git
-
-
-Navigate to the project directory:
-
-cd travelxplore
-
-
-Install Django:
-
-pip install django
-
-
-Run the development server:
-
-python manage.py runserver
-
-
-Open browser and visit:
-
-http://127.0.0.1:8000/
+Screenshots
+Screenshots of the application interface and admin panel can be added in a screenshots folder to demonstrate the working of the project.
 
 Learning Outcomes
-
-Understanding Django project and app structure
-
-Working with URL routing and views
-
-Hands-on experience with backend web development
-
-Version control using Git and GitHub
+This project helped in understanding Django basics, backend development workflow, URL routing, and project organization. It also improved familiarity with GitHub for managing and sharing code.
 
 Future Enhancements
-
-User authentication
-
-Dynamic travel destination listings
-
-Database integration for travel data
-
-Frontend UI improvements
+Adding dynamic content using database models
+Improving frontend design
+Implementing user authentication
+Extending the project with additional features
 
 Author
-
 Hanisha Vaghela
 BSc IT Student
-Python | Django | Web Development
-
+Python and Django
