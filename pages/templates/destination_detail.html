@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('{{ destination.image_url }}');">
+    {{ destination.name }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    
+    <!-- Destination Header -->
+    <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;">
+            <div>
+                <h1 style="text-align: left; color: #0088a9; margin-bottom: 15px;">{{ destination.name }}</h1>
+                <p style="text-align: left; font-size: 20px; color: #666; margin-bottom: 20px;">
+                    📍 {{ destination.country }}
+                </p>
+                <p style="text-align: left; color: #333; line-height: 1.8; font-size: 16px;">
+                    {{ destination.description }}
+                </p>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; border: 2px solid #0088a9;">
+                <h3 style="color: #0088a9; margin-bottom: 15px; text-align: center;">Package Details</h3>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #333;">💰 Price:</strong>
+                    <p style="font-size: 24px; color: #0088a9; font-weight: 700; margin: 5px 0;">₹{{ destination.price_per_day }}/day</p>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: #333;">📅 Duration:</strong>
+                    <p style="font-size: 18px; color: #333; margin: 5px 0;">{{ destination.duration_days }} days</p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #333;">🏷️ Category:</strong>
+                    <p style="margin: 5px 0;">
+                        <span style="padding: 6px 15px; background: #e3f2fd; color: #0088a9; border-radius: 20px; font-weight: 600;">
+                            {{ destination.get_category_display }}
+                        </span>
+                    </p>
+                </div>
+                <a href="/contact/" style="display: block; width: 100%; text-align: center; padding: 15px; background: #0088a9; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 18px; transition: 0.3s;">
+                    📞 Book Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Highlights Section -->
+    <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <h2 style="color: #0088a9; margin-bottom: 25px;">✨ Highlights</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+        
+            {% for highlight in destination.highlights.split %}
+            <div style="display: flex; align-items: center; gap: 10px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #0088a9;">
+                <span style="font-size: 24px;">⭐</span>
+                <span style="color: #333; font-weight: 500;">{{ highlight.strip }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
+        <h2 style="color: #0088a9; margin-bottom: 25px;">📸 Gallery</h2>
+        <div style="text-align: center;">
+            <img src="{{ destination.image_url }}" alt="{{ destination.name }}" style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div style="background: linear-gradient(135deg, #0088a9, #00a8cc); padding: 50px 40px; border-radius: 12px; text-align: center; margin-bottom: 30px;">
+        <h2 style="color: white; margin-bottom: 15px; font-size: 32px;">Ready to Experience {{ destination.name }}?</h2>
+        <p style="color: white; margin-bottom: 25px; font-size: 18px;">
+            Don't miss out on this amazing adventure! Book your trip today.
+        </p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="/contact/" style="display: inline-block; padding: 15px 40px; background: white; color: #0088a9; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s;">
+                📞 Contact Us
+            </a>
+            <a href="/gallery/" style="display: inline-block; padding: 15px 40px; background: transparent; color: white; border: 2px solid white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s;">
+                🌍 View More Destinations
+            </a>
+        </div>
+    </div>
+
+    <!-- Admin Edit Button -->
+    {% if user.is_staff %}
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/destinations/edit/{{ destination.id }}/" style="display: inline-block; padding: 12px 30px; background: #ffc107; color: #333; border-radius: 8px; text-decoration: none; font-weight: 600;">
+            ✏️ Edit This Destination (Admin)
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+
+<style>
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns: 2fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800');">
+    Delete Traveler
+</div>
+{% endblock %}
+
+{% block content %}
+<h1 style="color: #d9534f;">Confirm Deletion</h1>
+
+<div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); text-align: center;">
+    <p style="font-size: 18px; color: #333; margin-bottom: 10px;">
+        Are you sure you want to delete this traveler?
+    </p>
+    
+    <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin: 20px 0;">
+        <p style="margin: 5px 0; color: #856404;"><strong>Name:</strong> {{ traveler.name }}</p>
+        <p style="margin: 5px 0; color: #856404;"><strong>Email:</strong> {{ traveler.email }}</p>
+        <p style="margin: 5px 0; color: #856404;"><strong>Phone:</strong> {{ traveler.phone }}</p>
+        <p style="margin: 5px 0; color: #856404;"><strong>Destination:</strong> {{ traveler.destination }}</p>
+    </div>
+
+    <p style="color: #d9534f; font-weight: 600; margin-bottom: 25px;">
+        ⚠️ This action cannot be undone!
+    </p>
+
+    <form method="POST" style="display: inline-block; margin-right: 10px;">
+        {% csrf_token %}
+        <button type="submit" style="padding: 12px 30px; background: #d9534f; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600;">
+            Yes, Delete
+        </button>
+    </form>
+
+    <a href="/travelers/" style="display: inline-block; padding: 12px 30px; background: #6c757d; color: white; border-radius: 6px; text-decoration: none; font-size: 16px; font-weight: 600;">
+        Cancel
+    </a>
+</div>
+
+<style>
+    button:hover {
+        background: #b84642;
+    }
+
+    a[href="/travelers/"]:hover {
+        background: #5a6268;
+    }
+</style>
+
+{% endblock %}

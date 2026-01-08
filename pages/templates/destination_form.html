@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05');">
+    {% if destination %}Edit Destination{% else %}Add New Destination{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{% if destination %}✏️ Edit Destination{% else %}➕ Add New Destination{% endif %}</h1>
+
+<div style="max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Destination Name *</label>
+                {{ form.name }}
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Country *</label>
+                {{ form.country }}
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Description *</label>
+            {{ form.description }}
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Category *</label>
+                {{ form.category }}
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Image URL *</label>
+                {{ form.image_url }}
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Price Per Day (INR) *</label>
+                {{ form.price_per_day }}
+            </div>
+            <div>
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Duration (Days) *</label>
+                {{ form.duration_days }}
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Highlights (comma-separated) *</label>
+            {{ form.highlights }}
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                {{ form.is_featured }}
+                <span style="font-weight: 600; color: #333;">⭐ Featured (Show on homepage slider)</span>
+            </label>
+        </div>
+
+        <button type="submit" style="width: 100%; background: #00a8cc; color: white; padding: 14px; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; font-weight: 600; transition: 0.3s;">
+            {% if destination %}💾 Update Destination{% else %}✈️ Add Destination{% endif %}
+        </button>
+    </form>
+
+    <a href="/destinations/" style="display: block; margin-top: 20px; text-align: center; font-weight: 600; color: #0077aa; text-decoration: none; font-size: 16px;">
+        ← Back to Destination List
+    </a>
+</div>
+
+<style>
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: #0088a9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 136, 169, 0.3);
+    }
+
+    button:hover {
+        background: #008db0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1526666923127-b2970f64b422');">
+    Contact Messages
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Customer Messages</h1>
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <span style="background: #0088a9; color: white; padding: 10px 20px; border-radius: 20px; font-weight: 600;">
+        📬 Total Messages: {{ messages.count }}
+    </span>
+</div>
+
+<div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+        <thead>
+            <tr>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Status</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Name</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Email</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Subject</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Date</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+            <tr style="{% if forloop.counter|divisibleby:2 %}background: #f6fbfc;{% endif %}">
+                <td style="padding: 12px;">
+                    {% if msg.is_read %}
+                        <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px;">✓ Read</span>
+                    {% else %}
+                        <span style="background: #ffc107; color: #333; padding: 4px 10px; border-radius: 12px; font-size: 12px;">● New</span>
+                    {% endif %}
+                </td>
+                <td style="padding: 12px; color: #333; font-weight: 600;">{{ msg.name }}</td>
+                <td style="padding: 12px; color: #333;">{{ msg.email }}</td>
+                <td style="padding: 12px; color: #333;">{{ msg.subject|truncatewords:5 }}</td>
+                <td style="padding: 12px; color: #666; font-size: 14px;">{{ msg.created_at|date:"M d, Y - h:i A" }}</td>
+                <td style="padding: 12px; text-align: center;">
+                    <a href="/messages/{{ msg.id }}/" style="padding: 6px 12px; background: #3b7ddd; color: white; border-radius: 5px; text-decoration: none; margin-right: 5px;">👁️ View</a>
+                    <a href="/messages/delete/{{ msg.id }}/" style="padding: 6px 12px; background: #d9534f; color: white; border-radius: 5px; text-decoration: none;">🗑️ Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="padding: 40px; text-align: center; color: #999;">
+                    📭 No messages yet. Waiting for customer inquiries!
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470');">
+    Travel Gallery
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Beautiful Travel Moments</h1>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 50px; font-size: 18px; color: #666;">
+    Explore stunning destinations through our lens. Get inspired for your next adventure!
+</p>
+
+<!-- Filter Tabs -->
+<div style="text-align: center; margin-bottom: 40px;">
+    <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+    <button class="filter-btn" onclick="filterGallery('beaches')">🏖️ Beaches</button>
+    <button class="filter-btn" onclick="filterGallery('mountains')">⛰️ Mountains</button>
+    <button class="filter-btn" onclick="filterGallery('cities')">🏙️ Cities</button>
+    <button class="filter-btn" onclick="filterGallery('nature')">🌿 Nature</button>
+</div>
+
+<!-- Gallery Grid -->
+<div class="gallery-grid">
+    
+    {% for dest in destinations %}
+    <!-- Destination {{ forloop.counter }} -->
+    <div class="gallery-item {{ dest.category }}" data-category="{{ dest.category }}">
+        <img src="{{ dest.image_url }}" alt="{{ dest.name }}">
+        <div class="overlay">
+            <div class="overlay-content">
+                <h3>{{ dest.name }}</h3>
+                <p>{{ dest.country }}</p>
+                <p style="font-size: 14px; margin: 10px 0;">
+                    ₹{{ dest.price_per_day }}/day | {{ dest.duration_days }} days
+                </p>
+                <a href="/destinations/{{ dest.id }}/" class="view-btn">View Details</a>
+                <a href="/contact/" class="view-btn" style="background: #28a745; margin-top: 5px;">Book Now</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+        <h2 style="color: #999; margin-bottom: 15px;">No destinations available yet</h2>
+        <p style="color: #999;">
+            {% if user.is_staff %}
+            <a href="/destinations/add/" style="color: #0088a9; font-weight: 600; text-decoration: none;">Add your first destination</a>
+            {% else %}
+            Please check back later for amazing destinations!
+            {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- Call to Action -->
+<div style="text-align: center; margin-top: 60px; padding: 50px 20px; background: linear-gradient(135deg, #0088a9, #00a8cc); border-radius: 12px;">
+    <h2 style="color: white; margin-bottom: 15px; font-size: 32px;">Love What You See?</h2>
+    <p style="color: white; margin-bottom: 25px; font-size: 18px;">Let's plan your dream vacation to any of these amazing destinations!</p>
+    <a href="/contact/" style="display: inline-block; padding: 15px 40px; background: white; color: #0088a9; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        📞 Contact Us Now
+    </a>
+</div>
+
+<style>
+/* Filter Buttons */
+.filter-btn {
+    padding: 10px 25px;
+    margin: 0 8px 10px 8px;
+    background: white;
+    border: 2px solid #0088a9;
+    color: #0088a9;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #0088a9;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 136, 169, 0.3);
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    height: 350px;
+}
+
+.gallery-item.hide {
+    display: none;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.15);
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .overlay-content {
+    transform: translateY(0);
+}
+
+.overlay-content h3 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.overlay-content p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.view-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background: #0088a9;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    margin: 5px;
+}
+
+.view-btn:hover {
+    background: #00a8cc;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .gallery-item {
+        height: 300px;
+    }
+    
+    .filter-btn {
+        padding: 8px 18px;
+        font-size: 14px;
+        margin: 0 5px 10px 5px;
+    }
+}
+</style>
+
+<script>
+// Filter Gallery Function
+function filterGallery(category) {
+    const items = document.querySelectorAll('.gallery-item');
+    const buttons = document.querySelectorAll('.filter-btn');
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    items.forEach(item => {
+        if (category === 'all') {
+            item.classList.remove('hide');
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 10);
+        } else {
+            if (item.dataset.category === category) {
+                item.classList.remove('hide');
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                }, 10);
+            } else {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    item.classList.add('hide');
+                }, 300);
+            }
+        }
+    });
+}
+
+// Initialize gallery items with fade-in effect
+document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.gallery-item');
+    items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            item.style.transition = 'all 0.4s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+        }, index * 50);
+    });
+});
+</script>
+
+{% endblock %}

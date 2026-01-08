@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800');">
+    Join TravelXplore
+</div>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; color: #0088a9; margin-bottom: 10px;">Create Your Account</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">Start your journey with us today!</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p style="margin: 5px 0;">❌ {{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p style="margin: 5px 0;">❌ {{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Username *</label>
+            {{ form.username }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Email *</label>
+            {{ form.email }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Phone Number</label>
+            {{ form.phone }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Password *</label>
+            {{ form.password }}
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Confirm Password *</label>
+            {{ form.confirm_password }}
+        </div>
+
+        <button type="submit" style="width: 100%; background: #0088a9; color: white; padding: 14px; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; font-weight: 600; transition: 0.3s;">
+            ✈️ Create Account
+        </button>
+    </form>
+
+    <p style="text-align: center; margin-top: 20px; color: #666;">
+        Already have an account? 
+        <a href="/login/" style="color: #0088a9; font-weight: 600; text-decoration: none;">Login</a>
+    </p>
+</div>
+
+<style>
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    input:focus {
+        border-color: #0088a9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 136, 169, 0.3);
+    }
+
+    button:hover {
+        background: #006f87;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+{% endblock %}

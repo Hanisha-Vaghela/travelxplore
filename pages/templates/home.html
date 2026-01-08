@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner">
+    Explore the World with Us
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Discover Beautiful Destinations</h1>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 50px; font-size: 18px; color: #666;">
+    TravelXplore brings you the best travel packages, adventure tours, and breathtaking holiday spots.
+    Your dream vacation begins here!
+</p>
+
+<!-- Popular Destinations Slider -->
+<section style="margin-bottom: 60px;">
+    <h2 style="text-align: center; color: #0088a9; margin-bottom: 30px; font-size: 32px;">🌍 Popular Destinations</h2>
+    
+    {% if featured_destinations %}
+    <!-- Flickity Slider -->
+    <div class="carousel" data-flickity='{ "autoPlay": 3000, "wrapAround": true, "pageDots": true, "prevNextButtons": true }'>
+        
+        {% for dest in featured_destinations %}
+        <!-- Destination: {{ dest.name }} -->
+        <div class="carousel-cell">
+            <div class="destination-card" style="background-image: url('{{ dest.image_url }}');">
+                <div class="overlay">
+                    <div class="content">
+                        <h3>{{ dest.name }}</h3>
+                        <p>{{ dest.country }}</p>
+                        <p style="font-size: 16px; margin: 10px 0;">₹{{ dest.price_per_day }}/day | {{ dest.duration_days }} days</p>
+                        <a href="/destinations/{{ dest.id }}/" class="btn" style="margin-right: 10px;">View Details</a>
+                        <a href="/contact/" class="btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 60px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <h3 style="color: #999; margin-bottom: 15px;">No featured destinations yet</h3>
+        <p style="color: #999;">
+            {% if user.is_staff %}
+            <a href="/destinations/add/" style="color: #0088a9; font-weight: 600; text-decoration: none;">Add destinations and mark them as featured</a>
+            {% else %}
+            Check out our <a href="/gallery/" style="color: #0088a9; font-weight: 600; text-decoration: none;">gallery</a> for available destinations!
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Why Choose Us Section -->
+<section style="margin-top: 60px;">
+    <h2 style="text-align: center; color: #0088a9; margin-bottom: 40px; font-size: 32px;">✨ Why Choose TravelXplore?</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        <!-- Feature 1 -->
+        <div style="text-align: center; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+            <div style="font-size: 50px; margin-bottom: 15px;">🎯</div>
+            <h3 style="color: #0088a9; margin-bottom: 10px;">Best Prices</h3>
+            <p style="color: #666;">Guaranteed lowest prices on all packages</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div style="text-align: center; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+            <div style="font-size: 50px; margin-bottom: 15px;">🛡️</div>
+            <h3 style="color: #0088a9; margin-bottom: 10px;">Safe & Secure</h3>
+            <p style="color: #666;">Your safety is our top priority</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div style="text-align: center; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+            <div style="font-size: 50px; margin-bottom: 15px;">⭐</div>
+            <h3 style="color: #0088a9; margin-bottom: 10px;">Expert Guides</h3>
+            <p style="color: #666;">Professional tour guides worldwide</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div style="text-align: center; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 4px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
+            <div style="font-size: 50px; margin-bottom: 15px;">💬</div>
+            <h3 style="color: #0088a9; margin-bottom: 10px;">24/7 Support</h3>
+            <p style="color: #666;">Always here to help you anytime</p>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<div style="text-align: center; margin-top: 60px; padding: 50px 20px; background: linear-gradient(135deg, #0088a9, #00a8cc); border-radius: 12px;">
+    <h2 style="color: white; margin-bottom: 15px; font-size: 32px;">Ready to Start Your Adventure?</h2>
+    <p style="color: white; margin-bottom: 25px; font-size: 18px;">Contact us today and let's plan your dream vacation!</p>
+    <a href="/contact/" style="display: inline-block; padding: 15px 40px; background: white; color: #0088a9; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+        📞 Contact Us Now
+    </a>
+</div>
+
+<!-- Flickity CSS -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+<!-- Flickity JS -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<style>
+/* Carousel Styles */
+.carousel {
+    background: transparent;
+    margin-bottom: 40px;
+}
+
+.carousel-cell {
+    width: 80%;
+    max-width: 600px;
+    height: 400px;
+    margin-right: 20px;
+}
+
+.destination-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.destination-card:hover {
+    transform: scale(1.02);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.destination-card:hover .overlay {
+    opacity: 1;
+}
+
+.content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.content h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #0088a9;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn:hover {
+    background: #00a8cc;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* Flickity buttons */
+.flickity-button {
+    background: rgba(0, 136, 169, 0.8);
+}
+
+.flickity-button:hover {
+    background: rgba(0, 136, 169, 1);
+}
+
+.flickity-page-dots .dot {
+    background: #0088a9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-cell {
+        width: 90%;
+        height: 350px;
+    }
+    
+    .content h3 {
+        font-size: 24px;
+    }
+    
+    .content p {
+        font-size: 16px;
+    }
+}
+</style>
+
+{% endblock %}

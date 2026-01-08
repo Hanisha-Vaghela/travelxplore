@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1557804506-669a67965ba0');">
+    Message Details
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Customer Inquiry</h1>
+
+<div style="max-width: 800px; margin: 0 auto; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+    
+    <!-- Message Header -->
+    <div style="border-bottom: 2px solid #0088a9; padding-bottom: 20px; margin-bottom: 25px;">
+        <h2 style="color: #0088a9; margin: 0 0 10px 0;">{{ message.subject }}</h2>
+        <p style="color: #666; margin: 5px 0; font-size: 14px;">
+            📅 Received on: <strong>{{ message.created_at|date:"F d, Y - h:i A" }}</strong>
+        </p>
+    </div>
+
+    <!-- Customer Info -->
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h3 style="color: #333; margin-top: 0;">Customer Information</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+                <p style="margin: 8px 0; color: #666;">
+                    <strong>👤 Name:</strong><br>
+                    <span style="color: #333; font-size: 16px;">{{ message.name }}</span>
+                </p>
+            </div>
+            <div>
+                <p style="margin: 8px 0; color: #666;">
+                    <strong>📧 Email:</strong><br>
+                    <a href="mailto:{{ message.email }}" style="color: #0088a9; text-decoration: none;">{{ message.email }}</a>
+                </p>
+            </div>
+        </div>
+        {% if message.phone %}
+        <p style="margin: 8px 0 0 0; color: #666;">
+            <strong>📞 Phone:</strong><br>
+            <a href="tel:{{ message.phone }}" style="color: #0088a9; text-decoration: none; font-size: 16px;">{{ message.phone }}</a>
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- Message Content -->
+    <div style="background: #fff; border-left: 4px solid #0088a9; padding: 20px; margin-bottom: 25px;">
+        <h3 style="color: #333; margin-top: 0;">Message:</h3>
+        <p style="color: #444; line-height: 1.8; font-size: 16px; white-space: pre-wrap;">{{ message.message }}</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="mailto:{{ message.email }}" style="padding: 12px 30px; background: #28a745; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+            📧 Reply via Email
+        </a>
+        {% if message.phone %}
+        <a href="tel:{{ message.phone }}" style="padding: 12px 30px; background: #17a2b8; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+            📞 Call Customer
+        </a>
+        {% endif %}
+        <a href="/messages/delete/{{ message.id }}/" style="padding: 12px 30px; background: #d9534f; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+            🗑️ Delete
+        </a>
+        <a href="/messages/" style="padding: 12px 30px; background: #6c757d; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+            ← Back to Messages
+        </a>
+    </div>
+</div>
+
+<style>
+    a[style*="background"]:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    @media (max-width: 600px) {
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+{% endblock %}

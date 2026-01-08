@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828');">
+    Traveler Records
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Manage Travelers</h1>
+
+<div style="text-align: center; margin-bottom: 30px;">
+    <a href="/travelers/add/" style="display: inline-block; background: #00a8cc; padding: 12px 25px; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+        + Add New Traveler
+    </a>
+</div>
+
+<div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+        <thead>
+            <tr>
+                <th style="background: #00a8cc; color: white; padding: 15px; text-align: left;">Name</th>
+                <th style="background: #00a8cc; color: white; padding: 15px; text-align: left;">Email</th>
+                <th style="background: #00a8cc; color: white; padding: 15px; text-align: left;">Phone</th>
+                <th style="background: #00a8cc; color: white; padding: 15px; text-align: left;">Destination</th>
+                <th style="background: #00a8cc; color: white; padding: 15px; text-align: center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in travelers %}
+            <tr style="{% if forloop.counter|divisibleby:2 %}background: #f6fbfc;{% endif %}">
+                <td style="padding: 12px; color: #333;">{{ t.name }}</td>
+                <td style="padding: 12px; color: #333;">{{ t.email }}</td>
+                <td style="padding: 12px; color: #333;">{{ t.phone }}</td>
+                <td style="padding: 12px; color: #333;">{{ t.destination }}</td>
+                <td style="padding: 12px; text-align: center;">
+                    <a href="/travelers/edit/{{ t.id }}/" style="padding: 6px 12px; background: #3b7ddd; color: white; border-radius: 5px; text-decoration: none; margin-right: 5px;">Edit</a>
+                    <a href="/travelers/delete/{{ t.id }}/" style="padding: 6px 12px; background: #d9534f; color: white; border-radius: 5px; text-decoration: none;">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="padding: 30px; text-align: center; color: #999;">
+                    No travelers found. Add your first traveler!
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

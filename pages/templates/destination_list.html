@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828');">
+    Manage Destinations
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>🌍 All Destinations (Admin Panel)</h1>
+
+<div style="text-align: center; margin-bottom: 30px;">
+    <a href="/destinations/add/" style="display: inline-block; background: #00a8cc; padding: 12px 25px; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+        ➕ Add New Destination
+    </a>
+</div>
+
+<div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
+        <thead>
+            <tr>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Image</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Name</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Country</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Category</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: left;">Price/Day</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: center;">Featured</th>
+                <th style="background: #0088a9; color: white; padding: 15px; text-align: center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dest in destinations %}
+            <tr {% if forloop.counter|divisibleby:2 %}style="background: #f6fbfc;"{% endif %}>
+                <td style="padding: 12px;">
+                    <img src="{{ dest.image_url }}" alt="{{ dest.name }}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
+                </td>
+                <td style="padding: 12px; color: #333; font-weight: 600;">{{ dest.name }}</td>
+                <td style="padding: 12px; color: #333;">{{ dest.country }}</td>
+                <td style="padding: 12px; color: #333;">
+                    <span style="padding: 4px 10px; background: #e3f2fd; color: #0088a9; border-radius: 12px; font-size: 13px;">
+                        {{ dest.get_category_display }}
+                    </span>
+                </td>
+                <td style="padding: 12px; color: #333; font-weight: 600;">₹{{ dest.price_per_day }}</td>
+                <td style="padding: 12px; text-align: center;">
+                    {% if dest.is_featured %}
+                        <span style="background: #ffc107; color: #333; padding: 4px 10px; border-radius: 12px; font-size: 12px;">⭐ Featured</span>
+                    {% else %}
+                        <span style="color: #999;">-</span>
+                    {% endif %}
+                </td>
+                <td style="padding: 12px; text-align: center;">
+                    <a href="/destinations/{{ dest.id }}/" style="padding: 6px 12px; background: #28a745; color: white; border-radius: 5px; text-decoration: none; margin-right: 5px;">👁️ View</a>
+                    <a href="/destinations/edit/{{ dest.id }}/" style="padding: 6px 12px; background: #3b7ddd; color: white; border-radius: 5px; text-decoration: none; margin-right: 5px;">✏️ Edit</a>
+                    <a href="/destinations/delete/{{ dest.id }}/" style="padding: 6px 12px; background: #d9534f; color: white; border-radius: 5px; text-decoration: none;">🗑️ Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" style="padding: 40px; text-align: center; color: #999;">
+                    📭 No destinations yet. Add your first destination!
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

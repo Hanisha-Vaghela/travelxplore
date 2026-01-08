@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05');">
+    {% if form.instance.pk %}Edit Traveler{% else %}Add New Traveler{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Edit Traveler Details{% else %}Register New Traveler{% endif %}</h1>
+
+<div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.15);">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Name:</label>
+            {{ form.name }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Email:</label>
+            {{ form.email }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Phone:</label>
+            {{ form.phone }}
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Destination:</label>
+            {{ form.destination }}
+        </div>
+
+        <button type="submit" style="width: 100%; background: #00a8cc; color: white; padding: 14px; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; font-weight: 600; transition: 0.3s;">
+            {% if form.instance.pk %}💾 Update Traveler{% else %}✈️ Add Traveler{% endif %}
+        </button>
+    </form>
+
+    <a href="/travelers/" style="display: block; margin-top: 20px; text-align: center; font-weight: 600; color: #0077aa; text-decoration: none; font-size: 16px;">
+        ← Back to Traveler List
+    </a>
+</div>
+
+<style>
+    input[type="text"],
+    input[type="email"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+        border-color: #00a8cc;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 168, 204, 0.3);
+    }
+
+    button:hover {
+        background: #008db0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    a[href="/travelers/"]:hover {
+        color: #005577;
+    }
+</style>
+
+{% endblock %}

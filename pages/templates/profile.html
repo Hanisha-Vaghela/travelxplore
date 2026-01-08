@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+<div class="banner" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828');">
+    My Profile
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}! 👋</h1>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; max-width: 1000px; margin: 0 auto;">
+    
+    <!-- Profile Card -->
+    <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); text-align: center;">
+        <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #0088a9, #00a8cc); color: white; display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: 700; margin: 0 auto 20px;">
+            {{ user.username|slice:":1"|upper }}
+        </div>
+        <h3 style="color: #0088a9; margin-bottom: 5px;">{{ user.get_full_name|default:user.username }}</h3>
+        <p style="color: #666; margin-bottom: 20px;">{{ user.email }}</p>
+        
+        <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;">
+            <p style="color: #666; font-size: 14px; margin: 5px 0;">
+                <strong>Member Since:</strong><br>
+                {{ user.date_joined|date:"M d, Y" }}
+            </p>
+        </div>
+
+        <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="/travelers/" style="display: block; padding: 10px; background: #0088a9; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+                📋 My Travelers
+            </a>
+            <a href="/messages/" style="display: block; padding: 10px; background: #00a8cc; color: white; border-radius: 6px; text-decoration: none; font-weight: 600; transition: 0.3s;">
+                📬 My Messages
+            </a>
+        </div>
+    </div>
+
+    <!-- Profile Form -->
+    <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.1);">
+        <h2 style="color: #0088a9; margin-bottom: 25px;">Edit Profile Information</h2>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Email</label>
+                {{ form.email }}
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Phone Number</label>
+                {{ form.phone }}
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Date of Birth</label>
+                {{ form.date_of_birth }}
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; font-weight: 600; color: #333; margin-bottom: 8px;">Address</label>
+                {{ form.address }}
+            </div>
+
+            <button type="submit" style="width: 100%; background: #0088a9; color: white; padding: 14px; border: none; border-radius: 6px; font-size: 17px; cursor: pointer; font-weight: 600; transition: 0.3s;">
+                💾 Update Profile
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #0088a9;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 136, 169, 0.3);
+    }
+
+    button:hover {
+        background: #006f87;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        div[style*="grid-template-columns: 1fr 2fr"] {
+            grid-template-columns: 1fr !important;
+        }
+        
+        div[style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+
+{% endblock %}
